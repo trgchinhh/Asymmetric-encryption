@@ -49,11 +49,13 @@ public class RSA {
         return ketqua;
     }
 
-    public void sinhcapkhoa(int sobit){
+    public void sinhcapkhoa(int sobit = 128){  // số bit mặc định là 128
         Sinh sinh = new Sinh();
         Random random = new Random();
         Console.WriteLine("Đang sinh cặp khóa {0} bit ...", sobit);
         int bit = sobit / 2;
+        Console.WriteLine("\t┌───> Public key: {0} bit", bit);
+        Console.WriteLine("\t└───> Private key: {0} bit", bit);
         e = 65537;
         do {
             p = sinh.sinhnguyento(bit, random);
@@ -70,7 +72,7 @@ public class RSA {
         khoabimat_base64 = Convert.ToBase64String(
             Encoding.UTF8.GetBytes(khoabimat)
         );
-        Console.WriteLine("Đã sinh cặp khóa {0} bit", sobit);
+        Console.WriteLine("[*] Đã sinh cặp khóa {0} bit", sobit);
     }
 
     public string mahoa(string noidung){
@@ -83,7 +85,8 @@ public class RSA {
     }
 
     public void in_mahoa(string banma){
-        Console.WriteLine("\t[Bản mã]\n\t" + banma);
+        Console.Write("\t[Bản mã]\n\t");
+        Mau.tomau("\t"+banma, Mau.mauvang, true);
     }
 
     public string giaima(string banma){
@@ -98,7 +101,8 @@ public class RSA {
     }
 
     public void in_giaima(string bangoc){
-        Console.WriteLine("\t[Bản gốc]\n\t" + bangoc);
+        Console.Write("\t[Bản gốc]\n\t");
+        Mau.tomau("\t"+bangoc, Mau.mauvang, true);
     }
 
     private string thugonkhoa(string khoa, int sokytu){
@@ -116,8 +120,28 @@ public class RSA {
     public void xemcapkhoa(int sokytu){
         string khoacongkhai_base64_thugon = thugonkhoa(khoacongkhai_base64, sokytu);
         string khoabimat_base64_thugon = thugonkhoa(khoabimat_base64, sokytu);
-        Console.WriteLine("\t[*] Public key: " + khoacongkhai_base64_thugon);
-        Console.WriteLine("\t[*] Private key: " + khoabimat_base64_thugon);
+        Console.Write("\t[*] Public key: ");
+        Mau.tomau(khoacongkhai_base64_thugon, Mau.mauxanh, true);
+        Console.Write("\t[*] Private key: ");
+        Mau.tomau(khoabimat_base64_thugon, Mau.mauxanh, true);
+
+        Console.Write("\n\t(?) Ghi khóa vào file (y/n): ");
+        string luachon = Console.ReadLine()!;
+        if(luachon == "y"){
+            string thumuc_filekhoa = "keys";
+            Directory.CreateDirectory(thumuc_filekhoa);
+            File.WriteAllText(
+                thumuc_filekhoa+"/public.key", 
+                khoacongkhai_base64
+            );
+            File.WriteAllText(
+                thumuc_filekhoa+"/private.key",
+                khoabimat_base64
+            );
+            Console.WriteLine("\t(*) Đã tạo thư mục chứa khóa !");
+        } else {
+            Console.WriteLine("\t(!) Không tạo thư mục chứa khóa !");
+        }
     }
 
     public void mahoa_file(string duongdan_vao, string duongdan_ra){

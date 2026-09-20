@@ -22,6 +22,7 @@ public class Sha256 {
 
     // hàm in hash
     public static void in_hash(string hash){
-        Console.WriteLine("\t*[Hash] " + hash);
+        Console.Write("\t*[Hash] ");
+        Mau.tomau(hash, Mau.mauvang, true);
     }
 }

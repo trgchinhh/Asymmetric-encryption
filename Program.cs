@@ -1,4 +1,59 @@
 ﻿public class Program {
+    public static void nhap_dodaikhoa(ref int chieudaicapkhoa){
+        // danh sách độ dài khóa dựa trên tiêu chuẩn mã hóa hiện nay 
+        // Demo khuyên dùng 128 -> 2048 cho nhanh 
+        int[] danhsachbit_hople = {
+            128, 256, 512, 1024, 2048, 3072, 4096
+        };
+
+        string menu_bit = @"┌──────────────────────────────┐
+│       Mã hóa ứng dụng        │
+│ Mô phỏng mã hóa bất đối xứng │
+│ Tác giả: Trường Chinh        │
+│ Github: Github.com/trgchinhh │
+└──────────────────────────────┘
+
+[Lưu ý] 
+  - Độ bảo mật mạnh nằm ở chiều dài khóa 
+  - Khóa càng dài sinh khóa và giải mã càng lâu 
+
+[01] 128: Rất yếu
+[02] 256: Rất yếu 
+[03] 512: Yếu 
+[04] 1024: Trung bình
+[05] 2048: Mạnh 
+[06] 3072: Rất mạnh
+[07] 4096: Rất mạnh 
+[08] Thoát 
+        ";
+
+        while(true){
+            Console.Clear();
+            Console.WriteLine(menu_bit);
+            Console.Write("[-] Lựa chọn: ");
+            int luachon;
+            int.TryParse(Console.ReadLine()!, out luachon);
+            if(luachon > danhsachbit_hople.Length || luachon < 1){
+                if(luachon == 8){
+                    Console.WriteLine("[Thoát]");
+                    Environment.Exit(0);
+                }
+                Console.WriteLine("\t(!) Vui lòng chọn hợp lệ theo menu !");
+            } 
+            else {
+                // nếu tìm được số bit từ lựa chọn 
+                if(danhsachbit_hople.Contains(danhsachbit_hople[luachon - 1])){
+                    chieudaicapkhoa = danhsachbit_hople[luachon - 1];
+                    break;
+                } 
+                else{
+                    Console.WriteLine("\t(!) Không tìm thấy chiều dài khóa hợp lệ !");
+                }
+            }
+            dungchuongtrinh();
+        }
+    }
+
     public static bool nhap_noidung(ref string noidung){
         Console.Write("\t(?) Nhập nội dung: ");
         string str_noidung = Console.ReadLine()!;
@@ -31,13 +86,17 @@
     }
 
     public static void Main(){
-        RSA rsa = new RSA();
-        // cặp khóa 128 bit (pubkey: 64 - prikey: 64)
-        rsa.sinhcapkhoa(128);
-
         // biến dùng chung 
+        int chieudaicapkhoa = 0;
         string noidung = "", banma = "", bangoc = "";
         string duongdan_vao = "", duongdan_ra = "";
+
+        nhap_dodaikhoa(ref chieudaicapkhoa);
+
+        RSA rsa = new RSA();
+        rsa.sinhcapkhoa(chieudaicapkhoa);
+        dungchuongtrinh();
+
 
         string banner = @"┌──────────────────────────────┐
 │       Mã hóa ứng dụng        │
@@ -60,9 +119,21 @@
         while(true){
             Console.Clear();
             Console.WriteLine(banner);
-            Console.WriteLine(
-                "[-] Nội dung: " + (string.IsNullOrEmpty(noidung) ? "Chưa có" : noidung)
-            );
+
+            // tô màu chữ nội dung 
+            Console.Write("[-] Nội dung: ");
+            if(string.IsNullOrEmpty(noidung)) Mau.tomau("Chưa có", Mau.maudo, true);
+            else Mau.tomau(noidung, Mau.mauxanh, true);
+
+            // tô màu chữ độ dài bit mạnh -> yếu 
+            Console.Write("[^] Độ dài cặp khóa " + chieudaicapkhoa + " (");
+            if(chieudaicapkhoa >= 3072) Mau.tomau("Rất mạnh", Mau.mauxanh);
+            else if(chieudaicapkhoa == 2048) Mau.tomau("Mạnh", Mau.mauxanh);
+            else if(chieudaicapkhoa == 1024) Mau.tomau("Trung bình ", Mau.mauvang);
+            else if(chieudaicapkhoa == 512) Mau.tomau("Yếu", Mau.mauvangdam);
+            else Mau.tomau("Rất yếu", Mau.maudo);
+            Console.WriteLine(")");
+
             Console.WriteLine(menu);
             Console.Write("[-] Lựa chọn: ");
             int luachon;
@@ -116,7 +187,6 @@
             }
             else {
                 Console.WriteLine("\n\t(!) Vui lòng nhập lựa chọn hợp lệ !");
-                continue;
             }
             dungchuongtrinh();
         }
