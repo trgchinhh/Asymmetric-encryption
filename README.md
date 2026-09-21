@@ -192,8 +192,8 @@ Giải mã:
 ## Cách cài đặt
 
 ```bash
-git clone https://github.com/trgchinhh/mophong-mahoabatdoixung.git
-cd .\mophong-mahoabatdoixung
+git clone https://github.com/trgchinhh/Asymmetric-encryption.git
+cd .\Asymmetric-encryption
 dotnet run
 ```
 
