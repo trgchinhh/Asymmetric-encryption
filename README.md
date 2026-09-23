@@ -18,7 +18,10 @@
 
 Chương trình nhỏ mô phỏng thuật toán mã hóa bất đối xứng RSA tự build
 
-![Demo ảnh](img/demo.png)
+<div align="center">
+  <img src="img/demo1.png" width="49%">
+  <img src="img/demo2.png" width="49%">
+</div>
 
 ---
 

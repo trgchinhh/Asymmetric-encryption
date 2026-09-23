@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Tự viết thuật toán mã hóa bất đối xứng")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+931c5fe9bcc6436ff72b89cf932f5b7fc62ca017")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+93aeeb43feebd5b09050d71a9664e5adb5a5fd57")]
 [assembly: System.Reflection.AssemblyProductAttribute("Tự viết thuật toán mã hóa bất đối xứng")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Tự viết thuật toán mã hóa bất đối xứng")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
