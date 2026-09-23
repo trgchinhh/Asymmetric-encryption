@@ -13,3 +13,7 @@ D:\STU\Năm 3\Mã hóa và ứng dụng\Tự viết thuật toán mã hóa bất
 D:\STU\Năm 3\Mã hóa và ứng dụng\Tự viết thuật toán mã hóa bất đối xứng\obj\Debug\net9.0\Tự viết thuật toán mã hóa bất đối xứng.genruntimeconfig.cache
 D:\STU\Năm 3\Mã hóa và ứng dụng\Tự viết thuật toán mã hóa bất đối xứng\obj\Debug\net9.0\ref\Tự viết thuật toán mã hóa bất đối xứng.dll
 D:\STU\Năm 3\Mã hóa và ứng dụng\Tự viết thuật toán mã hóa bất đối xứng\obj\Debug\net9.0\Tự viết thuật toán mã hóa bất đối xứng.sourcelink.json
+D:\STU\Năm 3\Mã hóa và ứng dụng\Tự viết thuật toán mã hóa bất đối xứng\obj\Debug\net9.0\Tự viết thuật toán mã hóa bất đối xứng.csproj.AssemblyReference.cache
+D:\STU\Năm 3\Mã hóa và ứng dụng\Tự viết thuật toán mã hóa bất đối xứng\bin\Debug\net9.0\Spectre.Console.dll
+D:\STU\Năm 3\Mã hóa và ứng dụng\Tự viết thuật toán mã hóa bất đối xứng\bin\Debug\net9.0\Spectre.Console.Ansi.dll
+D:\STU\Năm 3\Mã hóa và ứng dụng\Tự viết thuật toán mã hóa bất đối xứng\obj\Debug\net9.0\T_ vi_t .9F731B67.Up2Date

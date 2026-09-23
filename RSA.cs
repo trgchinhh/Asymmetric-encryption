@@ -121,9 +121,9 @@ public class RSA {
         string khoacongkhai_base64_thugon = thugonkhoa(khoacongkhai_base64, sokytu);
         string khoabimat_base64_thugon = thugonkhoa(khoabimat_base64, sokytu);
         Console.Write("\t[*] Public key: ");
-        Mau.tomau(khoacongkhai_base64_thugon, Mau.mauxanh, true);
+        Mau.tomau(khoacongkhai_base64_thugon, Mau.mauxanhla, true);
         Console.Write("\t[*] Private key: ");
-        Mau.tomau(khoabimat_base64_thugon, Mau.mauxanh, true);
+        Mau.tomau(khoabimat_base64_thugon, Mau.mauxanhla, true);
 
         Console.Write("\n\t(?) Ghi khóa vào file (y/n): ");
         string luachon = Console.ReadLine()!;

@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "DmkRaO+6l4s=",
+  "dgSpecHash": "PQ+ti57BTO8=",
   "success": true,
   "projectFilePath": "D:\\STU\\Năm 3\\Mã hóa và ứng dụng\\Tự viết thuật toán mã hóa bất đối xứng\\Tự viết thuật toán mã hóa bất đối xứng.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\ADMIN\\.nuget\\packages\\spectre.console\\0.57.2\\spectre.console.0.57.2.nupkg.sha512",
+    "C:\\Users\\ADMIN\\.nuget\\packages\\spectre.console.ansi\\0.57.2\\spectre.console.ansi.0.57.2.nupkg.sha512"
+  ],
   "logs": []
 }

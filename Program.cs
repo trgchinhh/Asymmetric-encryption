@@ -133,22 +133,17 @@ Chương trình nhỏ mô phỏng thuật toán mã hóa bất đối xứng RSA
 */
 #endregion
 
+using Spectre.Console;
 
 public class Program {
-    public static void nhap_dodaikhoa(ref int chieudaicapkhoa){
+    public static void nhap_dodaikhoa(string banner, ref int chieudaicapkhoa){
         // danh sách độ dài khóa dựa trên tiêu chuẩn mã hóa hiện nay 
         // Demo khuyên dùng 128 -> 2048 cho nhanh 
         int[] danhsachbit_hople = {
             128, 256, 512, 1024, 2048, 3072, 4096
         };
 
-        string menu_bit = @"┌──────────────────────────────┐
-│       Mã hóa ứng dụng        │
-│ Mô phỏng mã hóa bất đối xứng │
-│ Tác giả: Trường Chinh        │
-│ Github: Github.com/trgchinhh │
-└──────────────────────────────┘
-
+        string menu_bit = @"
 [Lưu ý] 
   - Độ bảo mật mạnh nằm ở chiều dài khóa 
   - Khóa càng dài sinh khóa và giải mã càng lâu 
@@ -165,10 +160,25 @@ public class Program {
 
         while(true){
             Console.Clear();
-            Console.WriteLine(menu_bit);
-            Console.Write("[-] Lựa chọn: ");
-            int luachon;
-            int.TryParse(Console.ReadLine()!, out luachon);
+            Console.WriteLine(banner);
+            Console.WriteLine("\n  MENU");
+            var luachon = AnsiConsole.Prompt(
+                new SelectionPrompt<int>()
+                .AddChoices(1, 2, 3, 4, 5, 6, 7, 8)
+                .WrapAround(true)
+                .HighlightStyle(new Style(Mau.mauxanhla))
+                .UseConverter(x => x switch {
+                    1 => Markup.Escape("[01] 128: Rất yếu"),
+                    2 => Markup.Escape("[02] 256: Rất yếu"),
+                    3 => Markup.Escape("[03] 512: Yếu"),
+                    4 => Markup.Escape("[04] 1024: Trung bình"),
+                    5 => Markup.Escape("[05] 2048: Mạnh"),
+                    6 => Markup.Escape("[06] 3072: Rất mạnh"),
+                    7 => Markup.Escape("[07] 4096: Rất mạnh"),
+                    8 => Markup.Escape("[08] Thoát"),
+                    _ => ""
+                })
+            );
             if(luachon > danhsachbit_hople.Length || luachon < 1){
                 if(luachon == 8){
                     Console.WriteLine("[Thoát]");
@@ -227,13 +237,6 @@ public class Program {
         string noidung = "", banma = "", bangoc = "";
         string duongdan_vao = "", duongdan_ra = "";
 
-        nhap_dodaikhoa(ref chieudaicapkhoa);
-
-        RSA rsa = new RSA();
-        rsa.sinhcapkhoa(chieudaicapkhoa);
-        dungchuongtrinh();
-
-
         string banner = @"┌──────────────────────────────┐
 │       Mã hóa ứng dụng        │
 │ Mô phỏng mã hóa bất đối xứng │
@@ -241,16 +244,13 @@ public class Program {
 │ Github: Github.com/trgchinhh │
 └──────────────────────────────┘
 ";
+        nhap_dodaikhoa(banner, ref chieudaicapkhoa);
 
-        string menu = @"
-[01] Nhập nội dung
-[02] Mã hóa nội dung 
-[03] Giải mã nội dung
-[04] Mã hóa nội dung file
-[05] Giải mã nội dung file  
-[06] Xem cặp khóa
-[07] Thoát  
-        ";
+        RSA rsa = new RSA();
+        rsa.sinhcapkhoa(chieudaicapkhoa);
+        dungchuongtrinh();
+
+
 
         while(true){
             Console.Clear();
@@ -259,21 +259,35 @@ public class Program {
             // tô màu chữ nội dung 
             Console.Write("[-] Nội dung: ");
             if(string.IsNullOrEmpty(noidung)) Mau.tomau("Chưa có", Mau.maudo, true);
-            else Mau.tomau(noidung, Mau.mauxanh, true);
+            else Mau.tomau(noidung, Mau.mauxanhla, true);
 
             // tô màu chữ độ dài bit mạnh -> yếu 
             Console.Write("[^] Độ dài cặp khóa " + chieudaicapkhoa + " (");
-            if(chieudaicapkhoa >= 3072) Mau.tomau("Rất mạnh", Mau.mauxanh);
-            else if(chieudaicapkhoa == 2048) Mau.tomau("Mạnh", Mau.mauxanh);
+            if(chieudaicapkhoa >= 3072) Mau.tomau("Rất mạnh", Mau.mauxanhla);
+            else if(chieudaicapkhoa == 2048) Mau.tomau("Mạnh", Mau.mauxanhla);
             else if(chieudaicapkhoa == 1024) Mau.tomau("Trung bình ", Mau.mauvang);
-            else if(chieudaicapkhoa == 512) Mau.tomau("Yếu", Mau.mauvangdam);
+            else if(chieudaicapkhoa == 512) Mau.tomau("Yếu", Mau.maucam);
             else Mau.tomau("Rất yếu", Mau.maudo);
             Console.WriteLine(")");
 
-            Console.WriteLine(menu);
-            Console.Write("[-] Lựa chọn: ");
-            int luachon;
-            int.TryParse(Console.ReadLine()!, out luachon);
+            Console.WriteLine("\n  MENU");
+            var luachon = AnsiConsole.Prompt(
+                new SelectionPrompt<int>()
+                .AddChoices(1, 2, 3, 4, 5, 6, 7)
+                .WrapAround(true)
+                .HighlightStyle(new Style(Mau.mauxanhla))
+                .UseConverter(x => x switch {
+                    1 => Markup.Escape("[01] Nhập nội dung"),
+                    2 => Markup.Escape("[02] Mã hóa nội dung "),
+                    3 => Markup.Escape("[03] Giải mã nội dung"),
+                    4 => Markup.Escape("[04] Mã hóa nội dung file"),
+                    5 => Markup.Escape("[05] Giải mã nội dung file"),
+                    6 => Markup.Escape("[06] Xem cặp khóa"),
+                    7 => Markup.Escape("[07] Thoát"),
+                    _ => ""
+                })
+            );
+
             if(luachon == 1){
                 Console.WriteLine("\n[Nhập nội dung]");
                 if(nhap_noidung(ref noidung)){
